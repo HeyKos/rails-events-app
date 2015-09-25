@@ -22,3 +22,4 @@
       %td= e.url
       %td
         =link_to 'Edit', edit_event_path(e)
+        =link_to 'Delete', event_path(e), {method: :delete, data: { confirm: 'Are you sure?' } }
