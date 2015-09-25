@@ -1,5 +1,5 @@
-## Sitename
-This is a boilerplate Ruby on Rails application configured with best practices in dependencies, performance and various other areas.
+## Sample Rails Event Planner App
+This is a sample rails event planner app.
 
 ### Development
 ---

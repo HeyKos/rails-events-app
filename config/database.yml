@@ -1,9 +1,8 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  database: sitename_development
-  username: sitename
-  password: sitename
+  username: ac_app_user
+  password: passw0rd!
   host: localhost
   pool: 5
   timeout: 5000
@@ -11,15 +10,15 @@ default: &default
 
 development:
   <<: *default
-  database: sitename_development
+  database: events_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: sitename_test
+  database: events_test
 
 production:
   <<: *default
-  database: sitename_production
+  database: events_production

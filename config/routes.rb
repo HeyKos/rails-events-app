@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     :registrations => "registrations"
   }
 
+  resources :events do
 
+  end
 
   get "errors/error_404"
   get "errors/error_500"

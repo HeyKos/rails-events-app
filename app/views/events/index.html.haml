@@ -1,0 +1,14 @@
+%table.table.table-data
+  %thead
+    %tr
+      %th Id
+      %th Title
+      %th Location
+      %th Occurs On
+  %tbody
+  - @events.each do |e|
+    %tr
+      %td= e.id
+      %td= e.title
+      %td= e.location
+      %td= e.occurs_on
