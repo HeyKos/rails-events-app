@@ -1,0 +1,30 @@
+- title "Add New Event"
+%h1 Add New Event
+= form_for(@event, :url => {:controller => 'events', :action => 'create'}, html: { class: "form-horizontal col-md-9" }) do |f|
+
+  - if f.object.errors.any?
+    .alert.alert-danger{ role: "alert" }
+      %ul
+        - f.object.errors.full_messages.each do |message|
+          %li
+            %span.sr-only Error:
+            = message
+
+  .field.form-group
+    = f.label :title, { class: "col-md-2 control-label" }
+    .col-md-10
+      = f.text_field :title, { autofocus: true, class: "form-control", placeholder: "Title" }
+
+  .field.form-group
+    = f.label :location, { class: "col-md-2 control-label" }
+    .col-md-10
+      = f.text_field :location, { class: "form-control", placeholder: "Location" }
+
+  .field.form-group
+    = f.label :occurs_on, { class: "col-md-2 control-label" }
+    .col-md-10
+      = f.date_field :occurs_on, { class: "form-control", placeholder: "Date of Event" }
+
+  %br
+  .actions.form-group.col-md-12.clearfix
+    = f.submit "Save", { class: "btn btn-primary col-md-3" }
