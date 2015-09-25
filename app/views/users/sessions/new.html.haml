@@ -1,0 +1,24 @@
+- title "Log in"
+
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
+  %fieldset.form-group.col-md-12.col-sm-12.col-xs-12
+    = f.label :email
+    %br
+    = f.email_field :email, { autofocus: true, class: "form-control", placeholder: "Email Address" }
+
+  %fieldset.form-group.col-md-12.col-sm-12.col-xs-12
+    = f.label :password
+    %br/
+    = f.password_field :password, { autocomplete: "off", class: "form-control", placeholder: "Password" }
+
+  - if devise_mapping.rememberable?
+    %fieldset.form-group.col-md-12.col-sm-12.col-xs-12
+      = f.check_box :remember_me
+      = f.label :remember_me
+
+  %fieldset.form-group.col-md-12.col-sm-12.col-xs-12
+    = f.submit "Log in", { class: "btn btn-block btn-primary" }
+
+  %fieldset.form-group.col-md-12.col-sm-12.col-xs-12
+    = render "users/shared/links"

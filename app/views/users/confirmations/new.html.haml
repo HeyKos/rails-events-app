@@ -1,0 +1,19 @@
+- title "Resend confirmation instructions"
+
+.col-md-12.col-sm-12.col-xs-12
+  = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+    = devise_error_messages!
+
+    .form-group
+      .row
+        = f.label :email, class: "col-md-2 col-sm-12 col-xs-12 control-label"
+        .col-md-10.col-sm-12.col-xs-12
+          = f.email_field :email, autofocus: true, class: "form-control"
+
+    .form-group
+      .row
+        .actions.col-md-10.col-md-push-2
+          = f.submit "Resend confirmation instructions", { class: "btn btn-primary btn-block" }
+
+.col-md-10.col-sm-10.col-xs-10.col-md-push-2
+  = render "users/shared/links"

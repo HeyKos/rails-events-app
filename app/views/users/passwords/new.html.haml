@@ -1,0 +1,20 @@
+- title "Forgot your password?"
+
+.col-md-12.col-sm-12.col-xs-12
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-horizontal" }) do |f|
+    = devise_error_messages!
+
+    .form-group
+      .row
+        = f.label :email, class: "col-md-2 col-sm-12 col-xs-12 control-label"
+        .col-md-10.col-sm-12.col-xs-12
+          = f.email_field :email, autofocus: true, class: "form-control"
+
+    .form-group
+      .row
+        .actions.col-md-6.col-md-push-2
+          = f.submit "Send me reset password instructions", { class: "btn btn-primary btn-block" }
+
+
+.col-md-6.col-sm-6.col-xs-6.col-md-push-2
+  = render "users/shared/links"
