@@ -6,12 +6,19 @@
     %tr
       %th Id
       %th Title
+      %th Description
       %th Location
       %th Occurs On
+      %th Url
+      %th Actions
   %tbody
   - @events.each do |e|
     %tr
       %td= e.id
       %td= e.title
+      %td= e.description
       %td= e.location
       %td= e.occurs_on
+      %td= e.url
+      %td
+        =link_to 'Edit', edit_event_path(e)
