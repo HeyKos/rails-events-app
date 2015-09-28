@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928135042) do
+ActiveRecord::Schema.define(version: 20150928142951) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", limit: 255
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20150928135042) do
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "registrations", force: :cascade do |t|
+    t.text     "note",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "event_id",   limit: 4
+  end
+
+  add_index "registrations", ["event_id"], name: "index_registrations_on_event_id", using: :btree
+  add_index "registrations", ["user_id"], name: "index_registrations_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 255
@@ -65,4 +76,6 @@ ActiveRecord::Schema.define(version: 20150928135042) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "events", "users"
+  add_foreign_key "registrations", "events"
+  add_foreign_key "registrations", "users"
 end

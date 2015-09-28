@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   # Asscociations
   # -------
   has_many :events, dependent: :destroy
+  has_many :registrations
+  has_many :activities, :through => :registrations, :source => :event
   # Mix-ins
   # -------
   # :async - devise-async for mailers via background tasks
