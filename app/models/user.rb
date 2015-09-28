@@ -34,7 +34,9 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :events, dependent: :destroy
+  # Asscociations
+  # -------
+  has_many :events, dependent: :destroy, :order => "occurs_on DESC, title ASC"
   # Mix-ins
   # -------
   # :async - devise-async for mailers via background tasks
