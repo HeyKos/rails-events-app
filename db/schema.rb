@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20150928135042) do
     t.string "name", limit: 255
   end
 
-  create_table "cateogries_events", id: false, force: :cascade do |t|
-    t.integer "cateogry_id", limit: 4, null: false
+  create_table "categories_events", id: false, force: :cascade do |t|
+    t.integer "category_id", limit: 4, null: false
     t.integer "event_id",    limit: 4, null: false
   end
 

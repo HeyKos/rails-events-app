@@ -1,8 +1,8 @@
 class CreateJoinTableCategoryEvent < ActiveRecord::Migration
   def change
-    create_join_table :cateogries, :events do |t|
-      # t.index [:cateogry_id, :event_id]
-      # t.index [:event_id, :cateogry_id]
+    create_join_table :categories, :events do |t|
+      # t.index [:category_id, :event_id]
+      # t.index [:event_id, :category_id]
     end
   end
 end
