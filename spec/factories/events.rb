@@ -10,6 +10,11 @@
 #  updated_at  :datetime         not null
 #  url         :string(255)
 #  description :string(255)
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_events_on_user_id  (user_id)
 #
 
 FactoryGirl.define do

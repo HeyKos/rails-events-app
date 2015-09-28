@@ -34,7 +34,7 @@
 #
 
 class User < ActiveRecord::Base
-
+  has_many :events, dependent: :destroy
   # Mix-ins
   # -------
   # :async - devise-async for mailers via background tasks
