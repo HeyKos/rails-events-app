@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928134319) do
+ActiveRecord::Schema.define(version: 20150928135042) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name", limit: 255
+  end
+
+  create_table "cateogries_events", id: false, force: :cascade do |t|
+    t.integer "cateogry_id", limit: 4, null: false
+    t.integer "event_id",    limit: 4, null: false
   end
 
   create_table "events", force: :cascade do |t|
