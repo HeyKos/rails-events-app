@@ -17,6 +17,7 @@ class EventsController < ApplicationController
       @event.user_id = current_user.id
     end
     if @event.save
+      EventMailer.event_created_email(@event).deliver_now
       redirect_to events_path
     else
       render 'new'

@@ -1,0 +1,18 @@
+%h1
+  New Event Notification
+%p
+  A new event has been created
+  %br
+  Details
+  %br
+  %strong
+    Event Name:
+  #{@event.title}
+  %br
+  %strong
+    Location:
+  #{@event.location}
+%p
+  Click the link below to view the event
+  %br
+  =link_to 'View Event', edit_event_url(@event)
