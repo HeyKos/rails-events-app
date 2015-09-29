@@ -41,6 +41,11 @@ class Event < ActiveRecord::Base
     occurs_on < Date.today
   end
 
+  def owned_by?(owner)
+    return false unless owner.is_a? User
+    user == owner
+  end
+
   protected
     def has_not_occurred
       errors.add("occurs_on", "is in the past") if occurs_on && is_in_the_past?

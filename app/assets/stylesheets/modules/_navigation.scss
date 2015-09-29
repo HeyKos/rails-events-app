@@ -11,6 +11,9 @@
         position: relative;
         display: block;
         padding: 15px;
+        > a {
+          color: $light-gray;
+        }
       }
     }
   }
