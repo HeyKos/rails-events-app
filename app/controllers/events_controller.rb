@@ -29,9 +29,15 @@ class EventsController < ApplicationController
 
   def update
     @event = event_find
-    @event.attributes = params[:event]
+    p = params[:event]
+    @event.title = p[:title]
+    @event.description = p[:description]
+    @event.occurs_on = p[:occurs_on]
+    @event.url = p[:url]
+    @event.location = p[:location]
     unless params[:categories].blank?
-      @event.category_ids = params[:categories]
+      @event.categories = []
+      @event.categories << Category.find(params[:categories])
     end
     if @event.save
       redirect_to events_path
@@ -48,7 +54,7 @@ class EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:title, :location, :occurs_on, :description, :url)
+      params.require(:event).permit(:title, :location, :occurs_on, :description, :url, :categories)
     end
 
     def event_find

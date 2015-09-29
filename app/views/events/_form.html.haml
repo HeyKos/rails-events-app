@@ -14,10 +14,9 @@
       = f.text_field :title, { autofocus: true, class: "form-control", placeholder: "Title" }
 
   .field.form-group
-    = f.label 'categories', { class: "col-md-2 control-label" }
+    = f.label :categories, { class: "col-md-2 control-label" }
     .col-md-10
-      -#= select_tag 'categories', options_from_collection_for_select(Category.all, "id", "name"), { multiple: true, class: "form-control", placeholder: "Categories" }
-      = select_tag :category_ids, options_from_collection_for_select(Category.all, "id", "name", @event.category_ids), { multiple: true, class: "form-control", placeholder: "Categories" }
+      = select_tag :categories, options_from_collection_for_select(Category.all, "id", "name", @event.category_ids), { multiple: true, class: "form-control", placeholder: "Categories" }
 
   .field.form-group
     = f.label :description, { class: "col-md-2 control-label" }
