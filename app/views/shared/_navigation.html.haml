@@ -17,6 +17,8 @@
             .col-md-8.col-sm-6.col-xs-6
               %ul.nav.navbar-nav.nav-pages.navbar-right
                 - if user_signed_in?
+                  %li.welcome
+                    %span= "Welcome #{current_user.first_name}"
                   %li= link_to "Log out", destroy_user_session_path
                 - unless user_signed_in?
                   %li= link_to "Create Account", new_user_registration_path

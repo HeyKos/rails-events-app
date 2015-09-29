@@ -1,0 +1,17 @@
+/*
+ * Includes styles for the site navigation
+ */
+.navbar {
+  border-radius: 0;
+  .nav-pages {
+    .welcome {
+      color: $light-gray;
+      > span {
+        line-height: 20px;
+        position: relative;
+        display: block;
+        padding: 15px;
+      }
+    }
+  }
+}

@@ -35,8 +35,8 @@ class EventsController < ApplicationController
     @event.occurs_on = p[:occurs_on]
     @event.url = p[:url]
     @event.location = p[:location]
+    @event.categories = []
     unless params[:categories].blank?
-      @event.categories = []
       @event.categories << Category.find(params[:categories])
     end
     if @event.save
