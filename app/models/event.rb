@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
   validates :location, presence: true
   validate :has_not_occurred
   # Event callbacks
-   after_create :ensure_owner_attends
+  after_create :ensure_owner_attends
 
   def long_title
     "#{title} - #{location} - #{occurs_on}"
@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
     end
 
     def ensure_owner_attends
-      unless attendees.include? user
+      if user and !attendees.include? user
         attendees << user
       end
     end

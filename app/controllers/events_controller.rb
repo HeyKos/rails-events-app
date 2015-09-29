@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   def index
     @events = Event.all
   end
@@ -9,6 +10,12 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    unless params[:categories].blank?
+      @event.categories << Category.find(params[:categories])
+    end
+    if current_user
+      @event.user_id = current_user.id
+    end
     if @event.save
       redirect_to events_path
     else
@@ -22,7 +29,11 @@ class EventsController < ApplicationController
 
   def update
     @event = event_find
-    if @event.update(event_params)
+    @event.attributes = params[:event]
+    unless params[:categories].blank?
+      @event.category_ids = params[:categories]
+    end
+    if @event.save
       redirect_to events_path
     else
       render 'edit'

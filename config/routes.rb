@@ -4,9 +4,7 @@ Rails.application.routes.draw do
     :registrations => "registrations"
   }
 
-  resources :events do
-
-  end
+  resources :events
 
   get "errors/error_404"
   get "errors/error_500"
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
   get "/robots.txt", to: "home#robots"
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'events#index'
 
   unless Rails.env.development?
     match '*not_found', via: ActionDispatch::Routing::HTTP_METHODS, to: 'errors#error_404'
