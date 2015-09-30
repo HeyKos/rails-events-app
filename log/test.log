@@ -1978,3 +1978,476 @@ Processing by HomeController#index as HTML
 Redirected to http://test.host/events
 Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
   [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36m (63.4ms)[0m  [1mDROP DATABASE IF EXISTS `events_test`[0m
+  [1m[35m (0.2ms)[0m  CREATE DATABASE `events_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (7.4ms)[0m  [1mCREATE TABLE `categories` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (7.6ms)[0m  CREATE TABLE `categories_events` (`category_id` int(11) NOT NULL, `event_id` int(11) NOT NULL) ENGINE=InnoDB
+  [1m[36m (6.2ms)[0m  [1mCREATE TABLE `events` (`id` int(11) auto_increment PRIMARY KEY, `title` varchar(255), `location` varchar(255), `occurs_on` date, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL, `url` varchar(255), `description` varchar(255), `user_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (16.0ms)[0m  CREATE  INDEX `index_events_on_user_id` USING btree ON `events` (`user_id`) 
+  [1m[36m (7.5ms)[0m  [1mCREATE TABLE `registrations` (`id` int(11) auto_increment PRIMARY KEY, `note` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL, `user_id` int(11), `event_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (16.5ms)[0m  CREATE  INDEX `index_registrations_on_event_id` USING btree ON `registrations` (`event_id`) 
+  [1m[36m (18.9ms)[0m  [1mCREATE  INDEX `index_registrations_on_user_id` USING btree ON `registrations` (`user_id`) [0m
+  [1m[35m (7.3ms)[0m  CREATE TABLE `taggings` (`id` int(11) auto_increment PRIMARY KEY, `tag_id` int(11), `taggable_id` int(11), `taggable_type` varchar(255), `tagger_id` int(11), `tagger_type` varchar(255), `context` varchar(128), `created_at` datetime) ENGINE=InnoDB
+  [1m[36m (19.2ms)[0m  [1mCREATE UNIQUE INDEX `taggings_idx` USING btree ON `taggings` (`tag_id`, `taggable_id`, `taggable_type`, `context`, `tagger_id`, `tagger_type`) [0m
+  [1m[35m (23.1ms)[0m  CREATE  INDEX `index_taggings_on_taggable_id_and_taggable_type_and_context` USING btree ON `taggings` (`taggable_id`, `taggable_type`, `context`) 
+  [1m[36m (7.0ms)[0m  [1mCREATE TABLE `tags` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `taggings_count` int(11) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35m (23.0ms)[0m  CREATE UNIQUE INDEX `index_tags_on_name` USING btree ON `tags` (`name`) 
+  [1m[36m (7.1ms)[0m  [1mCREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `first_name` varchar(255), `last_name` varchar(255), `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0 NOT NULL, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `confirmation_token` varchar(255), `confirmed_at` datetime, `confirmation_sent_at` datetime, `unconfirmed_email` varchar(255), `failed_attempts` int(11) DEFAULT 0 NOT NULL, `unlock_token` varchar(255), `locked_at` datetime, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (21.8ms)[0m  CREATE UNIQUE INDEX `index_users_on_confirmation_token` USING btree ON `users` (`confirmation_token`) 
+  [1m[36m (20.8ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_email` USING btree ON `users` (`email`) [0m
+  [1m[35m (18.4ms)[0m  CREATE UNIQUE INDEX `index_users_on_reset_password_token` USING btree ON `users` (`reset_password_token`) 
+  [1m[36m (18.2ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_unlock_token` USING btree ON `users` (`unlock_token`) [0m
+  [1m[35m (17.2ms)[0m  ALTER TABLE `events` ADD CONSTRAINT `fk_rails_0cb5590091`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+
+  [1m[36m (32.1ms)[0m  [1mALTER TABLE `registrations` ADD CONSTRAINT `fk_rails_05fe64f220`
+FOREIGN KEY (`event_id`)
+  REFERENCES `events` (`id`)
+[0m
+  [1m[35m (23.9ms)[0m  ALTER TABLE `registrations` ADD CONSTRAINT `fk_rails_2e0658f554`
+FOREIGN KEY (`user_id`)
+  REFERENCES `users` (`id`)
+
+  [1m[36m (6.8ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (22.2ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (4.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150930135215')
+  [1m[36m (2.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150930135213')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150930135211')
+  [1m[36m (3.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150925174619')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150928134319')
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150928123056')[0m
+  [1m[35m (3.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141214184325')
+  [1m[36m (3.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150928135042')[0m
+  [1m[35m (4.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150930135214')
+  [1m[36m (2.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150928142951')[0m
+  [1m[35m (4.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150930135212')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150925191911')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 0
+  [1m[36m (0.1ms)[0m  [1mSELECT DATABASE() as db[0m
+  [1m[35m (0.4ms)[0m  select table_name from information_schema.views where table_schema = 'events_test'
+  [1m[36m (4.9ms)[0m  [1mTRUNCATE TABLE `categories`;[0m
+  [1m[35m (2.8ms)[0m  TRUNCATE TABLE `categories_events`;
+  [1m[36m (4.6ms)[0m  [1mTRUNCATE TABLE `events`;[0m
+  [1m[35m (3.2ms)[0m  TRUNCATE TABLE `registrations`;
+  [1m[36m (3.0ms)[0m  [1mTRUNCATE TABLE `taggings`;[0m
+  [1m[35m (2.9ms)[0m  TRUNCATE TABLE `tags`;
+  [1m[36m (4.0ms)[0m  [1mTRUNCATE TABLE `users`;[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+Processing by HomeController#index as HTML
+Redirected to http://test.host/events
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.4ms)[0m  SELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user1@example.com' LIMIT 1
+  [1m[36m (3.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user2@example.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.5ms)[0m  SELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user3@example.com' LIMIT 1
+  [1m[36m (3.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user4@example.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user5@example.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mUser Exists (4.7ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user6@example.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'invalid-email' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user@example.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+Processing by ErrorsController#error_500 as HTML
+  Rendered errors/error_500.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 19ms (Views: 18.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+Processing by ErrorsController#error_404 as HTML
+  Rendered errors/error_404.html.haml within layouts/application (0.2ms)
+Completed 200 OK in 6ms (Views: 5.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (3.4ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+Started GET "/invalid-route" for 127.0.0.1 at 2015-09-30 12:39:01 -0400
+Processing by ErrorsController#error_404 as HTML
+  Parameters: {"not_found"=>"invalid-route"}
+  Rendered errors/error_404.html.haml within layouts/application (1.9ms)
+  Rendered shared/_navigation.html.haml (6.0ms)
+Completed 200 OK in 1648ms (Views: 1647.4ms | ActiveRecord: 0.0ms)
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:02 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+Started GET "/errors/error_500_fake" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Processing by ErrorsController#error_500_fake as HTML
+faked 500 error
+/home/mkoser/Documents/Workspace/rails-events-app/app/controllers/errors_controller.rb:11:in `error_500_fake'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/implicit_render.rb:4:in `send_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/abstract_controller/base.rb:198:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/rendering.rb:10:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:115:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:115:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:553:in `block (2 levels) in compile'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:503:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:503:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:88:in `run_callbacks'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/abstract_controller/callbacks.rb:19:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/rescue.rb:29:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/notifications.rb:164:in `block in instrument'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/notifications.rb:164:in `instrument'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activerecord-4.2.3/lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/abstract_controller/base.rb:137:in `process'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionview-4.2.3/lib/action_view/rendering.rb:30:in `process'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal.rb:196:in `dispatch'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_controller/metal.rb:237:in `block in action'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/routing/route_set.rb:76:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/routing/route_set.rb:76:in `dispatch'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/routing/route_set.rb:45:in `serve'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/journey/router.rb:43:in `block in serve'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/journey/router.rb:30:in `each'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/journey/router.rb:30:in `serve'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/routing/route_set.rb:821:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/warden-1.2.3/lib/warden/manager.rb:35:in `block in call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/warden-1.2.3/lib/warden/manager.rb:34:in `catch'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/warden-1.2.3/lib/warden/manager.rb:34:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/etag.rb:24:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/conditionalget.rb:25:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/flash.rb:260:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/session/abstract/id.rb:225:in `context'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/session/abstract/id.rb:220:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/cookies.rb:560:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activerecord-4.2.3/lib/active_record/query_cache.rb:36:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activerecord-4.2.3/lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/callbacks.rb:84:in `run_callbacks'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/reloader.rb:73:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/railties-4.2.3/lib/rails/rack/logger.rb:38:in `call_app'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/railties-4.2.3/lib/rails/rack/logger.rb:20:in `block in call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/tagged_logging.rb:68:in `block in tagged'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/tagged_logging.rb:26:in `tagged'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/tagged_logging.rb:68:in `tagged'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/railties-4.2.3/lib/rails/rack/logger.rb:20:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/request_id.rb:21:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/runtime.rb:18:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/activesupport-4.2.3/lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/lock.rb:17:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.3/lib/action_dispatch/middleware/static.rb:116:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/sendfile.rb:113:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/railties-4.2.3/lib/rails/engine.rb:518:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/railties-4.2.3/lib/rails/application.rb:165:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/urlmap.rb:66:in `block in call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/urlmap.rb:50:in `each'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/urlmap.rb:50:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/capybara-2.4.4/lib/capybara/server.rb:19:in `call'
+/home/mkoser/.rvm/gems/ruby-2.2.2/gems/rack-1.6.4/lib/rack/handler/webrick.rb:88:in `service'
+/home/mkoser/.rvm/rubies/ruby-2.2.2/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+/home/mkoser/.rvm/rubies/ruby-2.2.2/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+/home/mkoser/.rvm/rubies/ruby-2.2.2/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+Redirected to http://127.0.0.1:7787/errors/error_500
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+Started GET "/errors/error_500" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Processing by ErrorsController#error_500 as HTML
+  Rendered errors/error_500.html.haml within layouts/application (10.8ms)
+  Rendered shared/_navigation.html.haml (0.8ms)
+Completed 200 OK in 34ms (Views: 34.1ms | ActiveRecord: 0.0ms)
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.6ms)[0m  SELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user10@example.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `users` (`email`, `first_name`, `last_name`, `encrypted_password`, `confirmed_at`, `created_at`, `updated_at`) VALUES ('user10@example.com', 'Test', 'User', '$2a$04$fINR1B5rwqkhkgAGy/HZ1uCldvnFDljTsy34yhXthK05Fk2lTe4au', '2015-09-30 16:38:59', '2015-09-30 16:39:03', '2015-09-30 16:39:03')[0m
+  [1m[35m (3.9ms)[0m  COMMIT
+Started GET "/users/password/new" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Processing by PasswordsController#new as HTML
+  Rendered users/shared/_links.html.haml (2.6ms)
+  Rendered users/passwords/new.html.haml within layouts/application (14.4ms)
+  Rendered shared/_navigation.html.haml (0.6ms)
+Completed 200 OK in 30ms (Views: 29.5ms | ActiveRecord: 0.0ms)
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Started POST "/users/password" for 127.0.0.1 at 2015-09-30 12:39:03 -0400
+Processing by PasswordsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"user10@example.com"}, "commit"=>"Send me reset password instructions"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`email` = 'user10@example.com'  ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`reset_password_token` = '80276243d62603a630b4b2f70b11658cc1b0102e94011c89729a74369861b469'  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE `users` SET `reset_password_token` = '80276243d62603a630b4b2f70b11658cc1b0102e94011c89729a74369861b469', `reset_password_sent_at` = '2015-09-30 16:39:03', `updated_at` = '2015-09-30 16:39:03' WHERE `users`.`id` = 1
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  Rendered users/mailer/reset_password_instructions.html.haml (1.5ms)
+
+Devise::Mailer#reset_password_instructions: processed outbound mail in 228.3ms
+
+Sent mail to user10@example.com (5.9ms)
+Date: Wed, 30 Sep 2015 12:39:04 -0400
+From: mkoser@andculture.com
+Reply-To: mkoser@andculture.com
+To: user10@example.com
+Message-ID: <560c102827da9_460c3f9772aff0c08655@mkoser-VirtualBox.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>
+Hello user10@example.com!
+</p>
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+<p><a href="http://localhost:3000/users/password/edit?reset_password_token=UgdpSrSUADY9KTjeaFdK">Change my password</a></p>
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Redirected to http://127.0.0.1:7787/users/sign_in
+Completed 302 Found in 464ms (ActiveRecord: 3.9ms)
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Processing by Devise::SessionsController#new as HTML
+  Rendered users/shared/_links.html.haml (0.7ms)
+  Rendered users/sessions/new.html.haml within layouts/application (7.8ms)
+  Rendered shared/_navigation.html.haml (0.9ms)
+Completed 200 OK in 23ms (Views: 21.3ms | ActiveRecord: 0.0ms)
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (3.6ms)[0m  TRUNCATE TABLE `categories`;
+  [1m[36m (4.0ms)[0m  [1mTRUNCATE TABLE `categories_events`;[0m
+  [1m[35m (3.9ms)[0m  TRUNCATE TABLE `events`;
+  [1m[36m (3.0ms)[0m  [1mTRUNCATE TABLE `registrations`;[0m
+  [1m[35m (4.5ms)[0m  TRUNCATE TABLE `taggings`;
+  [1m[36m (3.7ms)[0m  [1mTRUNCATE TABLE `tags`;[0m
+  [1m[35m (3.2ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user11@example.com' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `users` (`email`, `first_name`, `last_name`, `encrypted_password`, `confirmed_at`, `created_at`, `updated_at`) VALUES ('user11@example.com', 'Test', 'User', '$2a$04$IzYJ4f3KoQg/Vdfh3Ib6l.tnNoHD6wOsxzWvCkEvw4vXfF1IRQPsi', '2015-09-30 16:38:59', '2015-09-30 16:39:04', '2015-09-30 16:39:04')
+  [1m[36m (2.7ms)[0m  [1mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2015-09-30 16:39:04', `current_sign_in_at` = '2015-09-30 16:39:04', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2015-09-30 16:39:04' WHERE `users`.`id` = 1[0m
+  [1m[35m (3.0ms)[0m  COMMIT
+Processing by EventsController#index as HTML
+  [1m[36mEvent Load (1.4ms)[0m  [1mSELECT `events`.* FROM `events`[0m
+  Rendered events/index.html.haml within layouts/application (13.2ms)
+  Rendered shared/_navigation.html.haml (0.4ms)
+Completed 200 OK in 35ms (Views: 33.6ms | ActiveRecord: 1.4ms)
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/users/sign_out" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://127.0.0.1:7787/
+Completed 302 Found in 6ms (ActiveRecord: 0.4ms)
+Started GET "/" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Processing by EventsController#index as HTML
+  [1m[36mEvent Load (0.1ms)[0m  [1mSELECT `events`.* FROM `events`[0m
+  Rendered events/index.html.haml within layouts/application (0.8ms)
+  Rendered shared/_navigation.html.haml (0.7ms)
+Completed 200 OK in 12ms (Views: 11.4ms | ActiveRecord: 0.1ms)
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:04 -0400
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.3ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'events_test'[0m
+  [1m[35m (151.3ms)[0m  TRUNCATE TABLE `categories`;
+  [1m[36m (2.8ms)[0m  [1mTRUNCATE TABLE `categories_events`;[0m
+  [1m[35m (3.1ms)[0m  TRUNCATE TABLE `events`;
+  [1m[36m (2.5ms)[0m  [1mTRUNCATE TABLE `registrations`;[0m
+  [1m[35m (3.3ms)[0m  TRUNCATE TABLE `taggings`;
+  [1m[36m (3.3ms)[0m  [1mTRUNCATE TABLE `tags`;[0m
+  [1m[35m (3.6ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+Started GET "/users/sign_up" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Processing by RegistrationsController#new as HTML
+  Rendered users/shared/_links.html.haml (2.8ms)
+  Rendered users/registrations/new.html.haml within layouts/application (25.6ms)
+  Rendered shared/_navigation.html.haml (0.6ms)
+Completed 200 OK in 45ms (Views: 43.7ms | ActiveRecord: 0.0ms)
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started POST "/users" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Processing by RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"first_name"=>"Test", "last_name"=>"User", "email"=>"user12@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `users` WHERE `users`.`email` = BINARY 'user12@example.com' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`confirmation_token` = 'db047aa3a2ad8126df6d0242b95f43975709162da8806d8f2736d9f6a56a6070'  ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO `users` (`first_name`, `last_name`, `email`, `encrypted_password`, `created_at`, `updated_at`, `confirmation_token`, `confirmation_sent_at`) VALUES ('Test', 'User', 'user12@example.com', '$2a$04$Imblp7c41EmEnZCuNpI0ROWq/GQUxfrFKXNvb74b7JaoW4MoY0l9e', '2015-09-30 16:39:05', '2015-09-30 16:39:05', 'db047aa3a2ad8126df6d0242b95f43975709162da8806d8f2736d9f6a56a6070', '2015-09-30 16:39:05')[0m
+  Rendered users/mailer/confirmation_instructions.html.haml (1.4ms)
+
+Devise::Mailer#confirmation_instructions: processed outbound mail in 27.7ms
+
+Sent mail to user12@example.com (1.5ms)
+Date: Wed, 30 Sep 2015 12:39:05 -0400
+From: mkoser@andculture.com
+Reply-To: mkoser@andculture.com
+To: user12@example.com
+Message-ID: <560c10298947a_460c3f9772a860e48758@mkoser-VirtualBox.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>
+Welcome user12@example.com!
+</p>
+<p>You can confirm your account email through the link below:</p>
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=-5HB9gyofTZYxD7koBUw">Confirm my account</a></p>
+
+  [1m[35m (3.1ms)[0m  COMMIT
+Redirected to http://127.0.0.1:7787/
+Completed 302 Found in 217ms (ActiveRecord: 3.8ms)
+Started GET "/" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Processing by EventsController#index as HTML
+  [1m[36mEvent Load (0.2ms)[0m  [1mSELECT `events`.* FROM `events`[0m
+  Rendered events/index.html.haml within layouts/application (0.9ms)
+  Rendered shared/_navigation.html.haml (0.6ms)
+Completed 200 OK in 12ms (Views: 11.7ms | ActiveRecord: 0.2ms)
+Started GET "/assets/vendor/bootstrap-theme-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/lodash-3.2.0.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/jquery-1.11.2.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.css" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-3.3.2.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/vendor/bootstrap-datepicker.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 12:39:05 -0400
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `users`
+  [1m[36m (0.1ms)[0m  [1mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 0
+  [1m[36m (4.3ms)[0m  [1mTRUNCATE TABLE `categories`;[0m
+  [1m[35m (3.7ms)[0m  TRUNCATE TABLE `categories_events`;
+  [1m[36m (3.3ms)[0m  [1mTRUNCATE TABLE `events`;[0m
+  [1m[35m (5.7ms)[0m  TRUNCATE TABLE `registrations`;
+  [1m[36m (3.9ms)[0m  [1mTRUNCATE TABLE `taggings`;[0m
+  [1m[35m (3.5ms)[0m  TRUNCATE TABLE `tags`;
+  [1m[36m (4.4ms)[0m  [1mTRUNCATE TABLE `users`;[0m
+  [1m[35m (0.1ms)[0m  SET FOREIGN_KEY_CHECKS = 1

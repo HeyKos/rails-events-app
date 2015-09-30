@@ -18,6 +18,7 @@
 #
 
 class Event < ActiveRecord::Base
+  acts_as_taggable
   # Associations
   belongs_to :user
   has_many :registrations

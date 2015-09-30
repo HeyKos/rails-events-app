@@ -52,6 +52,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     addressable (2.3.8)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
@@ -332,6 +334,7 @@ PLATFORMS
 
 DEPENDENCIES
   action_case
+  acts-as-taggable-on (~> 3.4)
   annotate
   capybara
   coffee-rails (~> 4.1.0)
@@ -375,3 +378,6 @@ DEPENDENCIES
   unicorn
   unicorn-rails
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

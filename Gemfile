@@ -30,6 +30,7 @@ group :default do
   gem "uglifier", ">= 1.3.0"
   gem "unicorn"                                        # Default/Preferred Web Server
   gem "unicorn-rails"                                  # Sets Unicorn as default web server with "rails s"
+  gem 'acts-as-taggable-on', '~> 3.4'                  # Allows you to specify an arbitrary number of tag "contexts" that can be used locally or in combination
 end
 
 group :production do

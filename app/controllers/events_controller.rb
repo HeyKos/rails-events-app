@@ -10,11 +10,17 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    # Add category mappings
     unless params[:categories].blank?
       @event.categories << Category.find(params[:categories])
     end
+    # Assign the current user to the event
     if current_user
       @event.user_id = current_user.id
+    end
+    # Add tags
+    unless params[:tag_list].blank?
+      @event.tag_list.add(params[:tag_list], parser: SpaceParser)
     end
     if @event.save
       EventMailer.event_created_email(@event).deliver_now
@@ -36,9 +42,17 @@ class EventsController < ApplicationController
     @event.occurs_on = p[:occurs_on]
     @event.url = p[:url]
     @event.location = p[:location]
+    # Reset categories
     @event.categories = []
+    # Add category assigments
     unless params[:categories].blank?
       @event.categories << Category.find(params[:categories])
+    end
+    # Reset tags
+    @event.tag_list = ""
+    # Add tags
+    unless params[:tag_list].blank?
+      @event.tag_list.add(params[:tag_list], parser: SpaceParser)
     end
     if @event.save
       redirect_to events_path
@@ -55,7 +69,7 @@ class EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:title, :location, :occurs_on, :description, :url, :categories)
+      params.require(:event).permit(:title, :location, :occurs_on, :description, :url, :categories, :tag_list)
     end
 
     def event_find

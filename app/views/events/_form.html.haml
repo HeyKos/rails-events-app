@@ -38,6 +38,11 @@
     .col-md-10
       = f.url_field :url, { class: "form-control", placeholder: "Url" }
 
+  .field.form-group
+    = f.label 'Tags (space separated)', { class: "col-md-2 control-label" }
+    .col-md-10
+      = text_field_tag :tag_list, @event.tag_list, { class: "form-control", placeholder: "Tags" }
+
   %br
   .actions.form-group.col-md-12.clearfix
     = f.submit "Save", { class: "btn btn-primary col-md-3" }
