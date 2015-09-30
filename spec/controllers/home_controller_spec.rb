@@ -16,9 +16,9 @@ describe HomeController do
       # -----
 
       describe "GET #index" do
-        it "renders index template" do
+        it "redirects to events index" do
           get :index
-          expect(response).to render_template "index"
+          expect(response).to redirect_to(events_path)
         end
       end
 

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :events
 
+  get "home/index", to: "home#index"
+  get "home", to: "home#index"
   get "errors/error_404"
   get "errors/error_500"
   get "errors/error_500_fake"

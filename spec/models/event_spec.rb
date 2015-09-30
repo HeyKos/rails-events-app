@@ -21,7 +21,6 @@ require "spec_helper"
 
 
 describe Event do
-
   # ------------------------------------------------------------------------------
   #
   # Unit Tests
@@ -29,7 +28,12 @@ describe Event do
   # ------------------------------------------------------------------------------
 
   describe "unit tests", :unit do
-
+    describe Event, :type => :model do
+      it "is in the past" do
+        test_event = build(:event, title: "Test Event", location: "Testville, PA", occurs_on: "01/01/1945", url: "http://thing.com", description: "This is a test.")
+        expect(test_event).to be_invalid
+      end
+    end
   end # unit
 
 
