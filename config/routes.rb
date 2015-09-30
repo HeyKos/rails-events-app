@@ -1,3 +1,6 @@
+require 'resque/server'
+require 'resque/scheduler/server'
+
 Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :passwords => "passwords",
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
 
   get "/robots.txt", to: "home#robots"
 
+  mount Resque::Server.new, at: "/resque"
   # You can have the root of your site routed with "root"
   root 'events#index'
 

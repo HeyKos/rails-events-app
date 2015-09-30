@@ -1,0 +1,6 @@
+queue_delete_stale_events:
+  cron: "0 * * * *"
+  queue: default
+  class: "EventCleanupJob"
+  args:
+  description: "Job for deleting old and unassigned events from the database"

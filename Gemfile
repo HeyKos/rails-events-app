@@ -1,3 +1,4 @@
+
 # 1. Specify ruby version
 # 2. Maintain order of groups
 #   - default
@@ -15,6 +16,8 @@ ruby "2.2.2"
 
 group :default do
   gem "action_case"                                    # Use-case driven design patterns for ruby
+  gem "active_scheduler"                               # ActiveJob scheduling w/ Resque-Scheduler
+  gem 'acts-as-taggable-on', '~> 3.4'                  # Allows you to specify an arbitrary number of tag "contexts" that can be used locally or in combination
   gem "coffee-rails", "~> 4.1.0"                       # JavaScript abstraction
   gem "devise"                                         # Rack based Authentication
   gem "haml"                                           # Html abstraction
@@ -24,13 +27,14 @@ group :default do
   gem "mysql2"
   gem "oj"                                             # JSON Parser
   gem "rails", "4.2.3"
+  gem "resque"                                         # Job queue manager
+  gem "resque-scheduler"
   gem "sass-rails", "~> 5.0"                           # CSS abstraction
   gem "sdoc", "~> 0.4.0", group: :doc                  # bundle exec rake doc:rails generates the API under doc/api.
   gem "therubyracer", platforms: :ruby
   gem "uglifier", ">= 1.3.0"
   gem "unicorn"                                        # Default/Preferred Web Server
   gem "unicorn-rails"                                  # Sets Unicorn as default web server with "rails s"
-  gem 'acts-as-taggable-on', '~> 3.4'                  # Allows you to specify an arbitrary number of tag "contexts" that can be used locally or in combination
 end
 
 group :production do
