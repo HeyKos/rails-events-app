@@ -1,26 +1,6 @@
 - title "Events Listing"
 %h1 Events
-= link_to 'New event', new_event_path
-%table.table.table-data
-  %thead
-    %tr
-      %th Id
-      %th Title
-      %th Description
-      %th Location
-      %th Occurs On
-      %th Url
-      %th Actions
-  %tbody
-  - @events.each do |e|
-    %tr
-      %td= e.id
-      %td= e.title
-      %td= e.description
-      %td= e.location
-      %td= e.occurs_on
-      %td= e.url
-      %td
-        - if e.owned_by? current_user
-          =link_to 'Edit', edit_event_path(e)
-          =link_to 'Delete', event_path(e), {method: :delete, data: { confirm: 'Are you sure?' } }
+= button_to "New Event", new_event_path, {class: "btn btn-primary", method: :get}
+%br/
+- @events.each do |e|
+  = render partial: "event", locals: {e: e}

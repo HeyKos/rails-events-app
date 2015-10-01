@@ -1,0 +1,25 @@
+%div.panel.panel-default.col-md-12
+  %div.panel-heading.full-bleed
+    %h4= e.title
+  %div.panel-body
+    %p= e.description
+    %p
+      %span
+        %strong Date:
+      %span.value= e.occurs_on
+    %p
+      %span
+        %strong Location:
+      %span.value= e.location
+    %p
+      %span
+        %strong Tags:
+      %span
+        -e.categories.each do |c|
+          %span.badge= c.name
+  - if e.owned_by? current_user
+    %div.panel-footer.full-bleed.col.md.12.clearfix
+      %span.col-md-1
+        = button_to "Edit", edit_event_path(e), {class: "btn btn-primary btn-sm", method: :get}
+      %span.col-md-1
+        = button_to "Delete", event_path(e), {data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm"}
