@@ -23,7 +23,7 @@ class EventsController < ApplicationController
       @event.tag_list.add(params[:tag_list], parser: SpaceParser)
     end
     if @event.save
-      EventMailer.event_created_email(@event).deliver_now
+      EventMailer.event_created_email(@event).deliver_later
       redirect_to events_path
     else
       render 'new'
