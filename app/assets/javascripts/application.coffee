@@ -12,5 +12,6 @@
 #
 #= require jquery_ujs
 #= require namespaces
+#= require com/eventapp/events
 
 # Top-level Application javascript can go in here. NOTHING else!

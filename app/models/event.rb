@@ -47,6 +47,11 @@ class Event < ActiveRecord::Base
     user == owner
   end
 
+  def self.search(search_for)
+    where("title LIKE ?", "%#{search_for}%")
+    where("description LIKE ?", "%#{search_for}%")
+  end
+
   protected
     def has_not_occurred
       errors.add("occurs_on", "is in the past") if occurs_on && is_in_the_past?

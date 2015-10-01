@@ -1,3 +1,19 @@
-// Place all the styles related to the events controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#events {
+  > #event-heading {
+    margin-bottom: $default-spacing;
+
+    #tag-list {
+
+      a.badge {
+
+        &:hover {
+          box-shadow: 0 0 1px 1px $light-blue;
+        }
+
+        &.active {
+          background-color: $light-blue;
+        }
+      }
+    }
+  }
+}

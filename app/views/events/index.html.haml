@@ -1,6 +1,28 @@
 - title "Events Listing"
-%h1 Events
-= button_to "New Event", new_event_path, {class: "btn btn-primary", method: :get}
-%br/
-- @events.each do |e|
-  = render partial: "event", locals: {e: e}
+%div#events
+  %h1 Events
+  %div#event-heading.col-md-12.full-bleed.clearfix
+
+    %div.col-md-2
+      = button_to "New Event", new_event_path, {class: "btn btn-primary btn-block", method: :get}
+    %div.row
+      %div.col-md-4
+        = form_tag events_path, { :method => :get, id: "search-form" }
+        %div.input-group
+          = search_field_tag :search, params[:search], placeholder: "Search", class: "form-control"
+          %span.input-group-btn
+            = submit_tag 'Go', { class: "btn btn-info" }
+    - if @categories
+      %div.row
+        %div#tag-list.col-md-12
+          %h4 Filter by category
+          - @categories.each do |c|
+            = link_to c.name, "##{c.name.downcase}", { class: "badge" }
+  %div#event-list.row
+    - @events.each do |e|
+      = render partial: "event", locals: {e: e}
+
+:javascript
+  $(document).ready(function() {
+    com.eventapp.app.events = new com.eventapp.Events();
+  });

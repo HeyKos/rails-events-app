@@ -1,7 +1,13 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
-    @events = Event.all
+    @events = []
+    if params[:search]
+      @events = Event.search(params[:search])
+    else
+      @events = Event.all
+    end
+    @categories = Category.all
   end
 
   def new
