@@ -2,10 +2,14 @@
 %div#events
   %h1 Events
   %div#event-heading.col-md-12.full-bleed.clearfix
-
-    %div.col-md-2
-      = button_to "New Event", new_event_path, {class: "btn btn-primary btn-block", method: :get}
-    %div.row
+    %div.row.top-margin-half.bottom-margin-half
+      %h4.col-md-1 Actions:
+      %div.col-md-2
+        = link_to "New Event", new_event_path, {class: "btn btn-primary btn-success btn-block", method: :get}
+      %div.col-md-2
+        = button_to "Delete All", destroy_all_events_path, {class: "btn btn-secondary btn-danger btn-block", method: :delete, data: { confirm: "Are you sure?" } }
+    %div.row.top-margin-half.bottom-margin-half
+      %h4.col-md-1 Search:
       %div.col-md-4
         = form_tag events_path, { :method => :get, id: "search-form" }
         %div.input-group
@@ -13,9 +17,9 @@
           %span.input-group-btn
             = submit_tag 'Go', { class: "btn btn-info" }
     - if @categories
-      %div.row
-        %div#tag-list.col-md-12
-          %h4 Filter by category
+      %div.row#tag-list.bottom-margin-half
+        %h4.col-md-1 Filter:
+        %div.col-md-11
           - @categories.each do |c|
             = link_to c.name, "##{c.name.downcase}", { class: "badge" }
   %div#event-list.row

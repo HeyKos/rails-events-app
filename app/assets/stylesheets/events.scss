@@ -3,7 +3,9 @@
     margin-bottom: $default-spacing;
 
     #tag-list {
-
+      > div {
+        margin-top: $half-spacing;
+      }
       a.badge {
 
         &:hover {

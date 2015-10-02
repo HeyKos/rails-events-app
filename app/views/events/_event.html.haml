@@ -19,7 +19,7 @@
           %span.badge= c.name
   - if e.owned_by? current_user
     %div.panel-footer.full-bleed.col.md.12.clearfix
-      %span.col-md-1
-        = button_to "Edit", edit_event_path(e), {class: "btn btn-primary btn-sm btn-block", method: :get}
-      %span.col-md-1
+      %div.col-md-1
+        = link_to 'Edit', edit_event_path(e), { class: "btn btn-primary btn-sm btn-block" }
+      %div.col-md-1
         = button_to "Delete", event_path(e), {data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-sm btn-block"}

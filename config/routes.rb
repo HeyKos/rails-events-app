@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     :registrations => "registrations"
   }
 
-  resources :events
+  resources :events do
+    collection do
+      delete 'destroy_all'
+    end
+  end
 
   get "home/index", to: "home#index"
   get "home", to: "home#index"

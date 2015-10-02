@@ -6,3 +6,18 @@
   margin-left: $default-spacing * -1;
   margin-right: $default-spacing * -1;
 }
+
+.top-margin {
+  margin-top: $default-spacing;
+  &-half {
+    margin-top: $half-spacing;
+  }
+}
+
+.bottom-margin {
+  margin-bottom: $default-spacing;
+
+  &-half {
+    margin-bottom: $half-spacing;
+  }
+}

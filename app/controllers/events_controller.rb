@@ -73,6 +73,14 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def destroy_all
+    @events = Event.all
+    @events.each do |e|
+      e.destroy
+    end
+    redirect_to events_path
+  end
+
   private
     def event_params
       params.require(:event).permit(:title, :location, :occurs_on, :description, :url, :categories, :tag_list)

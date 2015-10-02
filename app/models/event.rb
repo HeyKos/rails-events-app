@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
   acts_as_taggable
   # Associations
   belongs_to :user
-  has_many :registrations
+  has_many :registrations, :dependent => :delete_all
   has_many :attendees, :through => :registrations, :source => :user
   has_and_belongs_to_many :categories
   # Validation
